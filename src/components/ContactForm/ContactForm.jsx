@@ -1,19 +1,18 @@
 import css from "../ContactForm/ContactForm.module.css"
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from "yup"
-import { nanoid } from 'nanoid'
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../../redux/contactsSlice';
+import { addContact } from '../../redux/contactsOps';
+import { selectContacts } from "../../redux/contactsSlice";
 
 
 export default function ContactForm() {
 
     const dispatch = useDispatch();
-    const contacts = useSelector((state) => state.contacts.items)
+    const contacts = useSelector(selectContacts)
 
     const formSubmit = (values, { resetForm }) => {
     const newContact = {
-        id: nanoid(),
         name: values.name,
         number: values.number
     };
@@ -53,7 +52,7 @@ export default function ContactForm() {
                 </div>
                 
             
-            <button type="submit">Add contact</button>
+            <button className={css.btnAdd} type="submit">Add contact</button>
             </Form>
         </Formik>
             
